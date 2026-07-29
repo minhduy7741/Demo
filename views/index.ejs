@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - Notes App</title>
+  <link rel="stylesheet" href="/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-brand">Notes App</div>
+    <div class="nav-user">
+      <span>Welcome, <strong><%= username %></strong></span>
+      <a href="/logout" class="btn-logout">Logout</a>
+    </div>
+  </nav>
+
+  <div class="container main-content">
+    <div class="glass-container compose-box">
+      <h3>Create a new note</h3>
+      <form action="/notes" method="POST">
+        <textarea name="content" required placeholder="What's on your mind?"></textarea>
+        <button type="submit" class="btn-primary">Save Note</button>
+      </form>
+    </div>
+
+    <div class="notes-grid">
+      <% if (notes.length === 0) { %>
+        <div class="empty-state">
+          <p>You don't have any notes yet. Create your first note above!</p>
+        </div>
+      <% } else { %>
+        <% notes.forEach(function(note) { %>
+          <div class="glass-container note-card">
+            <p class="note-content"><%= note.content %></p>
+            <div class="note-date">
+              <%= new Date(note.createdAt).toLocaleString() %>
+            </div>
+          </div>
+        <% }); %>
+      <% } %>
+    </div>
+  </div>
+</body>
+</html>
